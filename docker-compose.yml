@@ -4,7 +4,7 @@ services:
     build: .
     container_name: notfallakte
     ports:
-      - "8080:80"
+      - "8081:80"
     restart: unless-stopped
     networks:
       - proxy
@@ -15,7 +15,7 @@ services:
       - "traefik.http.routers.rote-mappe.tls=true"
       - "traefik.http.routers.rote-mappe.tls.certresolver=ionos"
       - "traefik.http.routers.rote-mappe.middlewares=default-headers@file"
-      - "traefik.http.services.rote-mappe.loadbalancer.server.port=8080"
+      - "traefik.http.services.rote-mappe.loadbalancer.server.port=8081"
       - "traefik.docker.network=proxy"
     cap_drop:
       - ALL
