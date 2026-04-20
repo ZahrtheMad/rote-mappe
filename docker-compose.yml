@@ -6,3 +6,27 @@ services:
     ports:
       - "8080:80"
     restart: unless-stopped
+        networks:
+      - proxy
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.rote-mappe.entrypoints=https"
+      - "traefik.http.routers.rote-mappe.rule=Host(`notfall.lokal.weigl.family`)"
+      - "traefik.http.routers.rote-mappe.tls=true"
+      - "traefik.http.routers.rote-mappe.tls.certresolver=ionos"
+      - "traefik.http.routers.rote-mappe.middlewares=default-headers@file"
+      - "traefik.http.services.rote-mappe.loadbalancer.server.port=8080"
+      - "traefik.docker.network=proxy"
+    cap_drop:
+      - ALL
+    deploy:
+      resources:
+        limits:
+          memory: 128m
+          cpus: '0.25'
+        reservations:
+          memory: 32m
+ 
+networks:
+  proxy:
+    external: true
