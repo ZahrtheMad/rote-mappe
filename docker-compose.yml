@@ -6,7 +6,7 @@ services:
     ports:
       - "8080:80"
     restart: unless-stopped
-        networks:
+    networks:
       - proxy
     labels:
       - "traefik.enable=true"
